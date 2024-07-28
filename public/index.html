@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zip Code Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Nearby Zip Codes Map</h1>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([-34.6037, -58.3816], 10); // Centered on Buenos Aires
+
+        // Set up the OpenStreetMap layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+        
+        // Function to add markers to the map
+        function addMarkers(zipData) {
+            console.log(JSON.stringify(zipData));
+            for (var zip in zipData) {
+                if (zipData.hasOwnProperty(zip)) {
+                    var data = zipData[zip];
+                    console.log(`Adding marker for ${data.loc} at [${data.lat}, ${data.lon}]`);
+                    var marker = L.marker([data.lat, data.lon]).addTo(map);
+                    marker.bindPopup(`<b>${data.zip}</b><br>${data.loc}`).openPopup();
+                }
+            }
+        }
+
+        // Fetch the zip data from the server
+        fetch('/api/zip-data')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Fetched zip data:', data);
+                addMarkers(data);
+            })
+            .catch(error => console.error('Error fetching zip data:', error));
+    </script>
+</body>
+</html>

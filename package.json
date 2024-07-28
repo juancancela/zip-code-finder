@@ -1,0 +1,28 @@
+{
+  "name": "zip-code-finder",
+  "version": "1.0.0",
+  "description": "Given a zip code, receusively check nearby zip codes.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juancancela/zip-code-finder.git"
+  },
+  "keywords": [
+    "zip",
+    "node",
+    "nearby",
+    "geo"
+  ],
+  "author": "Juan Carlos Cancela <cancela.juancarlos@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/juancancela/zip-code-finder/issues"
+  },
+  "homepage": "https://github.com/juancancela/zip-code-finder#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
